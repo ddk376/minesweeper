@@ -42,6 +42,7 @@ class Board
   end
 
   def render
+    system "clear" or system "cls"
     puts " 0 1 2 3 4 5 6 7 8"
     (0..(grid.size - 1)).each do |y|
       print "#{y}"
@@ -53,19 +54,19 @@ class Board
   end
 
   def cursor_up
-    cusor[1] -= 1
+    self.cursor[1] -= 1
   end
 
   def cursor_down
-    cursor[1] += 1
+    self.cursor[1] += 1
   end
 
   def cursor_left
-    cursor[0] -= 1
+    self.cursor[0] -= 1
   end
 
   def cursor_right
-    cursor[0] += 1
+    self.cursor[0] += 1
   end
 
   def check_cursor

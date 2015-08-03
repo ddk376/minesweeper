@@ -19,22 +19,29 @@ class Minesweeper
 
   def take_turn
     board.render
-    input = gets.chomp
-    action = input[0].upcase
-    pos = [input[1].to_i, input[2].to_i]
-    if action == "S"
-      save_game
-    elsif action == "L"
-      load_game
-    elsif valid?(action, pos)
-      if action == "F"
-        board[pos].switch_flag
-      else
-        reveal_pos(pos)
-      end
-    end
+    input = read_char
+    action(read_char)
   end
 
+  def action(char)
+    if char == "\e[A"
+      board.cursor_up
+    elsif char == "\e[B"
+      board.cursor_down
+    elsif char == "\e[C"
+      board.cursor_right
+    elsif char == "\e[D"
+      board.cursor_left
+    elsif char.upcase == "S"
+      save_game
+    elsif char.upcase == "L"
+      load_game
+    elsif char.upcase == "F" && !board[board.cursor].revealed
+      board[board.cursor].flagged ? board[board.cursor].switch_flag : reveal_pos(pos)
+    elsif char.upcase == "R" && !board[board.cursor].revealed && !board[board.cursor].flagged
+      reveal_pos(board[board.cursor])
+    end
+  end
 
   def reveal_pos(pos)
     if board[pos].bomb
