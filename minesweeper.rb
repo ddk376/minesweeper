@@ -1,4 +1,5 @@
 require_relative "board"
+require "yaml"
 
 class Minesweeper
   attr_accessor :board
@@ -19,7 +20,11 @@ class Minesweeper
     input = gets.chomp
     action = input[0].upcase
     pos = [input[1].to_i, input[2].to_i]
-    if valid?(action, pos)
+    if action == "S"
+      save_game
+    elsif action == "L"
+      load_game
+    elsif valid?(action, pos)
       if action == "F"
         board[pos].switch_flag
       else
@@ -73,6 +78,12 @@ class Minesweeper
     board.grid.flatten.all? do |space|
       space.bomb ? space.flagged : space.revealed
     end
+  end
+
+  def save_game
+    game = self.to_yaml
+    File.open("saved_games.txt", "w") { |file| file.write(game) }
+    abort
   end
 end
 
