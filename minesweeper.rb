@@ -64,6 +64,20 @@ class Minesweeper
     end
     board.render
     puts "You lose!"
+    break
+  end
+
+  def won?
+    (0..(board.grid.size - 1)).each do |y|
+      (0..(board.grid[0].size - 1)).each do |x|
+        if !board.grid[[x,y]].revealed && !board.grid[[x,y]].bomb
+          return false
+        elsif board.grid[[x,y]].bomb && !board.grid[[x,y]].flagged
+          return false
+        end
+      end
+    end
+    true
   end
 end
 
