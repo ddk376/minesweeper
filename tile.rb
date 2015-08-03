@@ -1,5 +1,4 @@
 require 'colorize'
-require_relative 'board'
 
 class Tile
   DIRECTIONS = [[-1,-1],
@@ -43,7 +42,7 @@ class Tile
   end
 
   def on_board?(pos)
-    pos.all? { |coord| coord.between?(0, board.length - 1) }
+    pos.all? { |coord| coord.between?(0, board.grid.length - 1) }
   end
 
   def neighbor_bomb_count
@@ -54,20 +53,21 @@ class Tile
     counter
   end
 
-  def inspect
-    return "F".red.on_white if flagged
-    return " ".black.on_white if !revealed
+  def to_s
+    return "F ".red.on_white if flagged
+    return "  ".white.on_white if !revealed
+    neighbor_bombs = neighbor_bomb_count
     if bomb
-      "*".black.on_red
-    elsif neighbor_bomb_count > 0
-      "#{neighbor_bomb_count}".white.on_black
+      "* ".black.on_red
+    elsif neighbor_bombs > 0
+      "#{neighbor_bombs} ".white.on_black
     else
-      " ".white.on_black
+      "  ".white.on_black
     end
   end
 
   def switch_flag
     self.flag = (flag == true ? false : true)
   end
-  
+
 end

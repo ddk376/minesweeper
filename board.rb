@@ -1,17 +1,18 @@
 require_relative 'tile'
 
 class Board
-  attr_reader :size, :bombs, :grid
+  attr_reader :bombs, :grid
 
-  def intialize(size = 9, bombs = 10)
+  def initialize(size = 9, bombs = 10)
     @grid = Array.new(size) { Array.new(size) }
     @bombs = bombs
+    populate
   end
 
   def populate
     bomb_pos = bomb_positions
-    (0..grid.size - 1).each do |y|
-      (0..grid[0].size - 1).each do |x|
+    (0..(grid.size - 1)).each do |y|
+      (0..(grid[0].size - 1)).each do |x|
         if bomb_pos.include?([x,y])
           self[[x,y]] = Tile.new([x,y], true, self)
         else
@@ -39,9 +40,9 @@ class Board
   end
 
   def render
-    (0..grid.size - 1).each do |y|
-      (0..grid.size - 1).each do |x|
-        print self[[x,y]].inspect
+    (0..(grid.size - 1)).each do |y|
+      (0..(grid[0].size - 1)).each do |x|
+      print self[[x,y]].to_s
       end
       puts
     end

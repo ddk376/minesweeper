@@ -8,6 +8,7 @@ class Minesweeper
   end
 
   def take_turn
+    board.render
     input = gets.chomp
     action = input[0].upcase
     pos = [input[1], input[2]]
@@ -30,10 +31,14 @@ class Minesweeper
 
   def reveal_neighbors(pos)
     neighbor_bomb_count = board[pos].neighbor_bomb_count
-    return neighbor_bomb_count if neighbor_bomb_count > 0
 
-    board[pos].neighbors.each do |neighbor| 
-      reveal_neighbors(neighbor) if !board[neighbor].bomb
+    board[pos].reveal
+    return if neighbor_bomb_count > 0
+
+    board[pos].neighbors.each do |neighbor|
+      if !board[neighbor].bomb && !board[neighbor].revealed
+        reveal_neighbors(neighbor)
+      end
     end
   end
 
@@ -50,6 +55,12 @@ class Minesweeper
   end
 
   def on_board?(pos)
-    pos.all? { |coord| coord.between?(0, board.length - 1) }
+    pos.all? { |coord| coord.between?(0, board.grid.length - 1) }
   end
+
 end
+
+
+x = Minesweeper.new(Board.new)
+x.reveal_pos([0,0])
+x.board.render
