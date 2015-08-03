@@ -2,9 +2,10 @@ require 'colorize'
 
 class Tile
   attr_accessor :flagged, :revealed
-  attr_reader :bomb, :board
+  attr_reader :bomb, :board, :pos
 
-  def initialize(bomb, board)
+  def initialize(pos, bomb, board)
+    @pos = pos
     @bomb = bomb
     @board = board
     @flagged = false
