@@ -1,6 +1,15 @@
 require 'colorize'
 
 class Tile
+  DIRECTIONS = [[-1,-1],
+                [-1,0],
+                [-1,1],
+                [0,-1],
+                [0,1],
+                [1,-1],
+                [1,0],
+                [1,1]]
+
   attr_accessor :flagged, :revealed
   attr_reader :bomb, :board, :pos
 
@@ -19,4 +28,6 @@ class Tile
   def flag
     self.flagged = true if revealed == false
   end
+
+
 end
