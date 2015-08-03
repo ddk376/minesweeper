@@ -24,7 +24,16 @@ class Minesweeper
     if board[pos].bomb
       game_over
     else
-      reveal_neighbors
+      reveal_neighbors(pos)
+    end
+  end
+
+  def reveal_neighbors(pos)
+    neighbor_bomb_count = board[pos].neighbor_bomb_count
+    return neighbor_bomb_count if neighbor_bomb_count > 0
+
+    board[pos].neighbors.each do |neighbor| 
+      reveal_neighbors(neighbor) if !board[neighbor].bomb
     end
   end
 

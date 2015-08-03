@@ -10,8 +10,8 @@ class Board
 
   def populate
     bomb_pos = bomb_positions
-    (0..grid.size - 1) do |y|
-      (0..grid[0].size - 1) do |x|
+    (0..grid.size - 1).each do |y|
+      (0..grid[0].size - 1).each do |x|
         if bomb_pos.include?([x,y])
           self[[x,y]] = Tile.new([x,y], true, self)
         else
