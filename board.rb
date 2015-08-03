@@ -1,10 +1,12 @@
 require_relative 'tile'
 
 class Board
+  attr_accessor :cursor
   attr_reader :bombs, :grid, :bomb_locations
 
   def initialize(size = 9, bombs = 10)
     @grid = Array.new(size) { Array.new(size) }
+    @cursor = [0,0]
     @bombs = bombs
     populate
   end
@@ -44,9 +46,32 @@ class Board
     (0..(grid.size - 1)).each do |y|
       print "#{y}"
       (0..(grid[0].size - 1)).each do |x|
-      print self[[x,y]].to_s
+        print ( cursor == [x,y] ? "  ".blue.on_blue : self[[x,y]].to_s )
       end
       puts
+    end
+  end
+
+  def cursor_up
+    cusor[1] -= 1
+  end
+
+  def cursor_down
+    cursor[1] += 1
+  end
+
+  def cursor_left
+    cursor[0] -= 1
+  end
+
+  def cursor_right
+    cursor[0] += 1
+  end
+
+  def check_cursor
+    self.cusor.map! do |coord|
+      coord = board.size if coord > board.size
+      coord = 0 if coord < 0
     end
   end
 

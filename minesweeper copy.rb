@@ -1,4 +1,4 @@
-require_relative "keypress"
+require 'io/console'
 require_relative "board"
 require "yaml"
 
