@@ -1,4 +1,5 @@
 require 'colorize'
+require_relative 'board'
 
 class Tile
   DIRECTIONS = [[-1,-1],
