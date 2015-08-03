@@ -10,4 +10,8 @@ class Tile
     @flagged = false
     @revealed = false
   end
+
+  def reveal
+    self.revealed = true
+  end
 end
