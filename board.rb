@@ -29,4 +29,14 @@ class Board
     end
     bomb_positions
   end
+
+  def [](pos)
+    @grid[pos[0]][pos[1]]
+  end
+
+  def []=(pos,value)
+    @grid[pos[0]][pos[1]] = value
+  end
+
+
 end
