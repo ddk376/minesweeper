@@ -14,4 +14,8 @@ class Tile
   def reveal
     self.revealed = true
   end
+
+  def flag
+    self.flagged = true if revealed == false
+  end
 end
