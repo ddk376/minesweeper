@@ -12,7 +12,7 @@ class Tile
   end
 
   def reveal
-    self.revealed = true
+    self.revealed = true if flagged == false
   end
 
   def flag
