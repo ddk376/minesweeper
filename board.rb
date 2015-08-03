@@ -38,5 +38,13 @@ class Board
     @grid[pos[0]][pos[1]] = value
   end
 
+  def render
+    (0..grid.size - 1).each do |y|
+      (0..grid.size - 1).each do |x|
+        print self[[x,y]].inspect
+      end
+      puts
+    end
+  end
 
 end
