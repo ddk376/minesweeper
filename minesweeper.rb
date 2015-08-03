@@ -50,19 +50,14 @@ class Minesweeper
   end
 
   def valid?(action, pos)
-    return false if !on_board?(pos)
+    return false if !board.on_board?(pos)
     if action == "R"
-      board[pos].revealed == false &&
-      board[pos].flagged == false
+      !board[pos].revealed && !board[pos].flagged
     elsif action == "F"
-      board[pos].revealed == false
+      !board[pos].revealed
     else
       false
     end
-  end
-
-  def on_board?(pos)
-    pos.all? { |coord| coord.between?(0, board.grid.length - 1) }
   end
 
   def loss
@@ -75,13 +70,9 @@ class Minesweeper
   end
 
   def won?
-    (0..(board.grid.size - 1)).each do |y|
-      (0..(board.grid[0].size - 1)).each do |x|
-        return false if !board[[x,y]].revealed && !board[[x,y]].bomb
-        return false if board[[x,y]].bomb && !board[[x,y]].flagged
-      end
+    board.grid.flatten.all? do |space|
+      space.bomb ? space.flagged : space.revealed
     end
-    true
   end
 end
 

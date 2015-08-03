@@ -22,13 +22,13 @@ class Tile
   end
 
   def reveal
-    self.revealed = true if flagged == false
+    self.revealed = true if !flagged
 
     nil
   end
 
   def flag
-    self.flagged = true if revealed == false
+    self.flagged = true if !revealed
 
     nil
   end
@@ -36,13 +36,9 @@ class Tile
   def neighbors
     neighbors = DIRECTIONS.map do |neighbor|
       new_pos = [pos[0] + neighbor[0], pos[1] + neighbor[1]]
-      on_board?(new_pos) ? new_pos : nil
+      board.on_board?(new_pos) ? new_pos : nil
     end
     neighbors.compact
-  end
-
-  def on_board?(pos)
-    pos.all? { |coord| coord.between?(0, board.grid.length - 1) }
   end
 
   def neighbor_bomb_count
@@ -67,7 +63,11 @@ class Tile
   end
 
   def switch_flag
-    self.flagged = (flagged == true ? false : true)
+    self.flagged = (flagged ? false : true)
+  end
+
+  def flagged?
+    @flagged
   end
 
 end
