@@ -23,7 +23,7 @@ class Minesweeper
 
   def reveal_pos(pos)
     if board[pos].bomb
-      game_over
+      loss
     else
       reveal_neighbors(pos)
     end
@@ -58,6 +58,13 @@ class Minesweeper
     pos.all? { |coord| coord.between?(0, board.grid.length - 1) }
   end
 
+  def loss
+    board.bomb_locations.each do |location|
+      board[location].reveal
+    end
+    board.render
+    puts "You lose!"
+  end
 end
 
 

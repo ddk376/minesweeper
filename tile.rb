@@ -67,7 +67,7 @@ class Tile
   end
 
   def switch_flag
-    self.flag = (flag == true ? false : true)
+    self.flagged = (flagged == true ? false : true)
   end
 
 end
