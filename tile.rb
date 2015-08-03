@@ -65,4 +65,8 @@ class Tile
       " ".white.on_black
     end
   end
+
+  def switch_flag
+    flag = (flag == true ? false : true)
+  end
 end

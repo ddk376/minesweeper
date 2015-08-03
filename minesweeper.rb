@@ -11,16 +11,19 @@ class Minesweeper
     input = gets.chomp
     action = input[0].upcase
     pos = [input[1], input[2]]
-
+    if valid?(action, pos)
+      if action == "F"
+        board[pos].switch_flag
+    end
   end
 
   def valid?(action, pos)
     return false if !on_board?(pos) &&
     if action == "R"
-      @board[pos].revealed == false &&
-      @board[pos].flagged == false
+      board[pos].revealed == false &&
+      board[pos].flagged == false
     elsif action == "F"
-      @board[pos].revealed == false
+      board[pos].revealed == false
     else
       false
     end
