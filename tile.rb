@@ -23,10 +23,14 @@ class Tile
 
   def reveal
     self.revealed = true if flagged == false
+
+    nil
   end
 
   def flag
     self.flagged = true if revealed == false
+
+    nil
   end
 
   def neighbors
