@@ -7,6 +7,13 @@ class Minesweeper
     @board = board
   end
 
+  def play
+    until won?
+      take_turn
+    end
+    display "You won!"
+  end
+
   def take_turn
     board.render
     input = gets.chomp
