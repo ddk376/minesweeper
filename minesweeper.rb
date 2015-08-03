@@ -18,12 +18,12 @@ class Minesweeper
     board.render
     input = gets.chomp
     action = input[0].upcase
-    pos = [input[1], input[2]]
+    pos = [input[1].to_i, input[2].to_i]
     if valid?(action, pos)
       if action == "F"
         board[pos].switch_flag
       else
-        reveal_space(pos)
+        reveal_pos(pos)
       end
     end
   end
@@ -50,7 +50,7 @@ class Minesweeper
   end
 
   def valid?(action, pos)
-    return false if !on_board?(pos) &&
+    return false if !on_board?(pos)
     if action == "R"
       board[pos].revealed == false &&
       board[pos].flagged == false
@@ -71,17 +71,14 @@ class Minesweeper
     end
     board.render
     puts "You lose!"
-    break
+    abort
   end
 
   def won?
     (0..(board.grid.size - 1)).each do |y|
       (0..(board.grid[0].size - 1)).each do |x|
-        if !board.grid[[x,y]].revealed && !board.grid[[x,y]].bomb
-          return false
-        elsif board.grid[[x,y]].bomb && !board.grid[[x,y]].flagged
-          return false
-        end
+        return false if !board[[x,y]].revealed && !board[[x,y]].bomb
+        return false if board[[x,y]].bomb && !board[[x,y]].flagged
       end
     end
     true
@@ -89,6 +86,4 @@ class Minesweeper
 end
 
 
-x = Minesweeper.new(Board.new)
-x.reveal_pos([0,0])
-x.board.render
+x = Minesweeper.new(Board.new).play
