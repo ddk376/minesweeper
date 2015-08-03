@@ -85,6 +85,11 @@ class Minesweeper
     File.open("saved_games.txt", "w") { |file| file.write(game) }
     abort
   end
+
+  def load_game
+    game = YAML::load(File.read("saved_games.txt"))
+    game.play
+  end
 end
 
 
