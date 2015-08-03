@@ -29,5 +29,7 @@ class Tile
     self.flagged = true if revealed == false
   end
 
-
+  def on_board?(pos)
+    pos.all? { |coord| coord.between?(0, board.length - 1) }
+  end
 end
