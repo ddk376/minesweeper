@@ -14,6 +14,9 @@ class Minesweeper
     if valid?(action, pos)
       if action == "F"
         board[pos].switch_flag
+      else
+        reveal_space(pos)
+      end
     end
   end
 
