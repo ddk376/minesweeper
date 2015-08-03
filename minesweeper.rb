@@ -20,6 +20,14 @@ class Minesweeper
     end
   end
 
+  def reveal_pos(pos)
+    if board[pos].bomb
+      game_over
+    else
+      reveal_neighbors
+    end
+  end
+
   def valid?(action, pos)
     return false if !on_board?(pos) &&
     if action == "R"
