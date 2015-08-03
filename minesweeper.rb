@@ -81,13 +81,17 @@ class Minesweeper
   end
 
   def save_game
+    print "Enter file name: "
+    file_name = gets.chomp
     game = self.to_yaml
-    File.open("saved_games.txt", "w") { |file| file.write(game) }
+    File.open("saved_games/#{file_name}.txt", "w") { |file| file.write(game) }
     abort
   end
 
   def load_game
-    game = YAML::load(File.read("saved_games.txt"))
+    print "Enter file name: "
+    file_name = gets.chomp
+    game = YAML::load(File.read("saved_games/#{file_name}.txt"))
     game.play
   end
 end
