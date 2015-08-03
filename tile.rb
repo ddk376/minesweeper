@@ -48,4 +48,16 @@ class Tile
     end
     counter
   end
+
+  def inspect
+    return "F".red.on_white if flagged
+    return " ".black.on_white if !revealed
+    if bomb
+      "*".black.on_red
+    elsif neighbor_bomb_count > 0
+      "#{neighbor_bomb_count}".white.on_black
+    else
+      " ".white.on_black
+    end
+  end
 end
