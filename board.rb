@@ -40,7 +40,9 @@ class Board
   end
 
   def render
+    puts " 0 1 2 3 4 5 6 7 8"
     (0..(grid.size - 1)).each do |y|
+      print "#{y}"
       (0..(grid[0].size - 1)).each do |x|
       print self[[x,y]].to_s
       end
