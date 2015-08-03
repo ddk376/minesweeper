@@ -4,8 +4,9 @@ require "yaml"
 class Minesweeper
   attr_accessor :board
 
-  def initialize(board)
-    @board = board
+  def initialize(file_name = nil)
+    @board = Board.new
+    file_name && File.exist?(file_name) ? load(file_name).play : play
   end
 
   def play
@@ -91,10 +92,16 @@ class Minesweeper
   def load_game
     print "Enter file name: "
     file_name = gets.chomp
-    game = YAML::load(File.read("saved_games/#{file_name}.txt"))
+    game = load(file_name)
     game.play
+  end
+
+  def load(file_name)
+    YAML::load(File.read("saved_games/#{file_name}.txt"))
   end
 end
 
-
-x = Minesweeper.new(Board.new).play
+if __FILE__ == $PROGRAM_NAME
+  game = ARGV.shift
+  x = Minesweeper.new(game)
+end
